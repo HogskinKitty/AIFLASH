@@ -1,17 +1,20 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue'
+import { data as newsData } from '../data/news.data.js'
+import { generateDateList, getDayStr } from '../utils/newsUtils'
+import type { NewsItem } from '../utils/newsUtils'
 import DateSidebar from '../components/DateSidebar.vue'
 import NewsCard from '../components/NewsCard.vue'
 import DetailModal from '../components/DetailModal.vue'
-import { generateDateList, getNewsByDate, getDayStr } from '../data/news'
-import type { NewsItem } from '../data/news'
 
 const selectedDate = ref(getDayStr(0))
 const selectedItem = ref<NewsItem | null>(null)
 
 const dateList = generateDateList(30)
 
-const filteredData = computed(() => getNewsByDate(selectedDate.value))
+const filteredData = computed(() => 
+  newsData.filter(item => item.date === selectedDate.value)
+)
 
 const selectedDateObj = computed(() => 
   dateList.find(d => d.fullDate === selectedDate.value)

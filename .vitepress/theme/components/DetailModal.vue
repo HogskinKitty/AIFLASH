@@ -5,8 +5,8 @@ import NeoCard from './NeoCard.vue'
 import HighlightText from './HighlightText.vue'
 import Icon from './Icon.vue'
 import BrandLogo from './BrandLogo.vue'
-import type { NewsItem } from '../data/news'
-import { getBrandColor } from '../data/news'
+import type { NewsItem } from '../utils/newsUtils'
+import { getBrandColor } from '../utils/newsUtils'
 
 const props = defineProps<{
   item: NewsItem

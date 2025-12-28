@@ -6,10 +6,11 @@
     "docs:preview": "vitepress preview"
   },
   "devDependencies": {
-    "vitepress": "^1.5.0",
-    "tailwindcss": "^3.4.17",
+    "autoprefixer": "^10.4.20",
+    "gray-matter": "^4.0.3",
     "postcss": "^8.4.49",
-    "autoprefixer": "^10.4.20"
+    "tailwindcss": "^3.4.17",
+    "vitepress": "^1.5.0"
   },
   "dependencies": {
     "lucide-vue-next": "^0.469.0"
