@@ -1,0 +1,87 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/**
+ * AI Morning News - Neo-Pop Design System
+ */
+
+:root {
+  /* Neo-Pop Colors */
+  --neo-pink: #ff9aa2;
+  --neo-blue: #aed9e0;
+  --neo-green: #b5e48c;
+  --neo-yellow: #fde4cf;
+  --neo-purple: #d0d1ff;
+  --neo-bg: #fcfbf7;
+  
+  /* Brand Colors */
+  --brand-openai: #10a37f;
+  --brand-google: #4285F4;
+  --brand-microsoft: #00a4ef;
+  --brand-anthropic: #d97757;
+  --brand-nvidia: #76b900;
+  --brand-zhipu: #3370ff;
+  --brand-minimax: #ff4d4f;
+  --brand-moonshot: #3A0088;
+  --brand-alibaba: #ff6a00;
+  --brand-mistral: #f6c444;
+  --brand-stability: #7D55C7;
+  --brand-apple: #000000;
+  --brand-jan: #a3278f;
+  --brand-meta: #0668E1;
+}
+
+body {
+  font-family: 'Noto Sans SC', sans-serif;
+  background-color: var(--neo-bg);
+}
+
+/* Override VitePress default styles for home page */
+.vp-doc {
+  padding: 0 !important;
+}
+
+.VPHome {
+  padding: 0 !important;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #d1d5db;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #9ca3af;
+}
+
+/* Animation */
+@keyframes modalIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95) translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.modal-enter {
+  animation: modalIn 0.2s ease-out forwards;
+}
+
+/* Hide VitePress nav/sidebar on home */
+.Layout.home .VPNav,
+.Layout.home .VPSidebar {
+  display: none;
+}
