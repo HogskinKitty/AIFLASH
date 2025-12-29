@@ -68,17 +68,6 @@ body {
   padding: 0 !important;
 }
 
-/* Hide VitePress native theme toggle */
-.VPSwitchAppearance {
-  display: none !important;
-}
-
-/* Position custom theme toggle button to the right of navbar */
-.VPNavBar .content-body > :first-child {
-  margin-left: auto;
-  order: 99;
-}
-
 /* Custom scrollbar */
 ::-webkit-scrollbar {
   width: 8px;

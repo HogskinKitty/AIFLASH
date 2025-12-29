@@ -6,14 +6,12 @@ import './style.css'
 
 // Import custom components
 import HomeLayout from './layouts/HomeLayout.vue'
-import ThemeToggle from './components/ThemeToggle.vue'
 
 export default {
     extends: DefaultTheme,
     Layout: () => {
         return h(DefaultTheme.Layout, null, {
             // https://vitepress.dev/guide/extending-default-theme#layout-slots
-            'nav-bar-content-before': () => h(ThemeToggle)
         })
     },
     enhanceApp({ app, router, siteData }) {
