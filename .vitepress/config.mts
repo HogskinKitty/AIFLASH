@@ -21,6 +21,11 @@ export default defineConfig({
 
     socialLinks: [
       { icon: 'github', link: 'https://github.com/HogskinKitty/AIFLASH' }
-    ]
+    ],
+
+    footer: {
+      message: 'Designed with Neo-Pop style.',
+      copyright: 'Copyright © 2025 AIFLASH'
+    }
   }
 })

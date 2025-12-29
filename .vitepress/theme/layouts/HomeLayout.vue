@@ -10,7 +10,7 @@ import NewsCard from '../components/NewsCard.vue'
 import DetailModal from '../components/DetailModal.vue'
 import Header from '../components/Header.vue'
 
-const { isDark } = useData()
+const { isDark, theme } = useData()
 
 const selectedDate = ref(getDayStr(0))
 const selectedItem = ref<NewsItem | null>(null)
@@ -126,9 +126,10 @@ watch(isDark, updateDarkMode)
             </p>
           </NeoCard>
 
-          <div class="mt-12 text-center md:text-left text-sm transition-colors duration-300"
+          <div v-if="theme.footer" class="mt-12 text-center md:text-left text-sm transition-colors duration-300"
                :class="[isDark ? 'text-gray-500' : 'text-gray-400']">
-            © 2025 AIFLASH. Designed with Neo-Pop style.
+            <span v-if="theme.footer.copyright" class="mr-2">{{ theme.footer.copyright }}.</span>
+            <span v-if="theme.footer.message" v-html="theme.footer.message"></span>
           </div>
         </main>
       </div>
