@@ -13,7 +13,7 @@ export default {
     Layout: () => {
         return h(DefaultTheme.Layout, null, {
             // https://vitepress.dev/guide/extending-default-theme#layout-slots
-            'nav-bar-content-after': () => h(ThemeToggle)
+            'nav-bar-content-before': () => h(ThemeToggle)
         })
     },
     enhanceApp({ app, router, siteData }) {
