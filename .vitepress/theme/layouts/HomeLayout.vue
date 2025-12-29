@@ -108,21 +108,24 @@ watch(isDark, updateDarkMode)
           </div>
 
           <!-- Empty State -->
-          <div
+          <NeoCard
             v-else
-            class="flex flex-col items-center justify-center py-20 transition-colors duration-300 border-2 border-dashed rounded-2xl"
-            :class="[
-              isDark ? 'bg-dark-neo-card border-dark-neo-purple text-dark-neo-text-secondary' : 'bg-white border-gray-300 text-gray-400'
-            ]"
+            :isDark="isDark"
+            :hoverEffect="false"
+            custom-color="#94a3b8"
+            class="flex flex-col items-center justify-center py-20 text-center"
           >
-            <div class="text-4xl mb-4">😴</div>
-            <p class="font-bold text-lg">
+            <div class="text-6xl mb-6 animate-pulse">😴</div>
+            <h3 class="font-black text-2xl mb-2" :class="[isDark ? 'text-white' : 'text-black']">
               {{ selectedManufacturer ? `暂无 ${selectedManufacturer} 相关新闻` : '今天暂时没有新闻' }}
+            </h3>
+            <p class="text-base font-medium max-w-md mx-auto" :class="[isDark ? 'text-gray-400' : 'text-gray-500']">
+              {{ selectedManufacturer 
+                  ? `Looks like ${selectedManufacturer} has been quiet lately. Try checking other dates!` 
+                  : 'The AI world is taking a nap. Check back later or explore previous days!' 
+              }}
             </p>
-            <p class="text-sm opacity-80">
-              {{ selectedManufacturer ? `No news available for ${selectedManufacturer}.` : 'No news available for this date.' }}
-            </p>
-          </div>
+          </NeoCard>
 
           <div class="mt-12 text-center md:text-left text-sm transition-colors duration-300"
                :class="[isDark ? 'text-gray-500' : 'text-gray-400']">
