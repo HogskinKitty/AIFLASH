@@ -7,9 +7,11 @@ const props = withDefaults(defineProps<{
   theme?: ColorTheme
   customColor?: string
   hoverEffect?: boolean
+  isDark?: boolean
 }>(), {
   theme: 'blue',
-  hoverEffect: true
+  hoverEffect: true,
+  isDark: false
 })
 
 const emit = defineEmits<{
@@ -18,7 +20,7 @@ const emit = defineEmits<{
 
 const isHovered = ref(false)
 
-const themeColors: Record<ColorTheme, string> = {
+const lightThemeColors: Record<ColorTheme, string> = {
   blue: '#aed9e0',
   pink: '#f7aef8',
   green: '#b5e48c',
@@ -26,24 +28,36 @@ const themeColors: Record<ColorTheme, string> = {
   purple: '#d0d1ff'
 }
 
-const shadowColor = computed(() => props.customColor || themeColors[props.theme] || '#cbd5e1')
+const darkThemeColors: Record<ColorTheme, string> = {
+  blue: '#3b82f6',
+  pink: '#c4556a',
+  green: '#22c55e',
+  yellow: '#fbbf24',
+  purple: '#8b5cf6'
+}
+
+const themeColors = computed(() => props.isDark ? darkThemeColors : lightThemeColors)
+const shadowColor = computed(() => props.customColor || themeColors.value[props.theme] || props.isDark ? '#666666' : '#cbd5e1')
 
 const cardStyle = computed(() => ({
   boxShadow: `6px 6px 0px 0px ${shadowColor.value}`,
-  borderColor: props.hoverEffect && isHovered.value ? shadowColor.value : '#000'
+  borderColor: props.hoverEffect && isHovered.value ? shadowColor.value : (props.isDark ? '#ffffff' : '#000000')
 }))
+
+const cardClasses = computed(() => [
+  'border-2 rounded-2xl p-4 transition-all duration-200',
+  props.isDark ? 'bg-dark-neo-card text-gray-100' : 'bg-white',
+  props.hoverEffect ? 'cursor-pointer hover:translate-y-[-2px] hover:translate-x-[-2px] active:translate-y-[2px] active:translate-x-[2px]' : ''
+])
 </script>
 
 <template>
-  <div 
+  <div
     @click="emit('click')"
     @mouseenter="isHovered = true"
     @mouseleave="isHovered = false"
     :style="cardStyle"
-    :class="[
-      'bg-white border-2 rounded-2xl p-4 transition-all duration-200',
-      hoverEffect ? 'cursor-pointer hover:translate-y-[-2px] hover:translate-x-[-2px] active:translate-y-[2px] active:translate-x-[2px]' : ''
-    ]"
+    :class="cardClasses"
   >
     <slot />
   </div>

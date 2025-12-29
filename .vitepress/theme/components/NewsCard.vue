@@ -7,6 +7,7 @@ import { getBrandColor } from '../utils/newsUtils'
 
 const props = defineProps<{
   item: NewsItem
+  isDark?: boolean
 }>()
 
 const emit = defineEmits<{
@@ -17,30 +18,39 @@ const brandColor = getBrandColor(props.item.manufacturer)
 </script>
 
 <template>
-  <NeoCard 
-    :theme="item.theme" 
+  <NeoCard
+    :theme="item.theme"
     :custom-color="brandColor"
+    :isDark="isDark"
     @click="emit('click')"
     class="flex items-center justify-between min-h-[80px] h-full overflow-hidden"
   >
     <div class="flex items-center gap-4 flex-1 min-w-0 pr-2">
       <!-- Vertical Accent Bar -->
-      <div 
-        class="w-1.5 h-10 rounded-full flex-shrink-0" 
+      <div
+        class="w-1.5 h-10 rounded-full flex-shrink-0"
         :style="{ backgroundColor: brandColor }"
       />
-      
+
       <!-- Title Content -->
-      <div class="text-base font-bold text-gray-800 leading-snug break-words">
-        <HighlightText :text="item.title" :highlights="item.titleHighlight" />
+      <div
+        class="text-base font-bold leading-snug break-words transition-colors duration-300"
+        :class="[isDark ? 'text-gray-100' : 'text-gray-800']"
+      >
+        <HighlightText
+          :text="item.title"
+          :highlights="item.titleHighlight"
+          :isDark="isDark"
+        />
       </div>
     </div>
 
     <!-- Logo Area -->
-    <div 
-      class="flex-shrink-0 w-10 h-10 flex items-center justify-center rounded-lg border-2 border-black/5 p-1 bg-gray-50"
+    <div
+      class="flex-shrink-0 w-10 h-10 flex items-center justify-center rounded-lg border-2 p-1 transition-colors duration-300"
+      :class="[isDark ? 'border-white/10 bg-dark-neo-card' : 'border-black/5 bg-gray-50']"
     >
-      <BrandLogo :manufacturer="item.manufacturer" />
+      <BrandLogo :manufacturer="item.manufacturer" :isDark="isDark" />
     </div>
   </NeoCard>
 </template>

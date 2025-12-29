@@ -7,13 +7,18 @@
  */
 
 :root {
-  /* Neo-Pop Colors */
+  /* Neo-Pop Colors - Light Theme */
   --neo-pink: #ff9aa2;
   --neo-blue: #aed9e0;
   --neo-green: #b5e48c;
   --neo-yellow: #fde4cf;
   --neo-purple: #d0d1ff;
   --neo-bg: #fcfbf7;
+  --neo-card: #ffffff;
+  --neo-text: #111827;
+  --neo-text-secondary: #6b7280;
+  --neo-border: #000000;
+  --neo-accent: #ff9aa2;
   
   /* Brand Colors */
   --brand-openai: #10a37f;
@@ -32,9 +37,26 @@
   --brand-meta: #0668E1;
 }
 
+.dark {
+  /* Neo-Pop Colors - Dark Theme */
+  --neo-pink: #c4556a;
+  --neo-blue: #3b82f6;
+  --neo-green: #22c55e;
+  --neo-yellow: #fbbf24;
+  --neo-purple: #8b5cf6;
+  --neo-bg: #121212;
+  --neo-card: #1e1e1e;
+  --neo-text: #f3f4f6;
+  --neo-text-secondary: #9ca3af;
+  --neo-border: #ffffff;
+  --neo-accent: #c4556a;
+}
+
 body {
   font-family: 'Noto Sans SC', sans-serif;
   background-color: var(--neo-bg);
+  color: var(--neo-text);
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 /* Override VitePress default styles for home page */
@@ -55,13 +77,25 @@ body {
   background: #f1f1f1;
 }
 
+.dark::-webkit-scrollbar-track {
+  background: #2a2a2a;
+}
+
 ::-webkit-scrollbar-thumb {
   background: #d1d5db;
   border-radius: 4px;
 }
 
+.dark::-webkit-scrollbar-thumb {
+  background: #4a4a4a;
+}
+
 ::-webkit-scrollbar-thumb:hover {
   background: #9ca3af;
+}
+
+.dark::-webkit-scrollbar-thumb:hover {
+  background: #6a6a6a;
 }
 
 /* Animation */
@@ -84,4 +118,17 @@ body {
 .Layout.home .VPNav,
 .Layout.home .VPSidebar {
   display: none;
+}
+
+/* Theme transition support */
+* {
+  transition-property: background-color, border-color, color, fill, stroke;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+}
+
+/* Disable transition for performance critical elements */
+.no-transition,
+.no-transition * {
+  transition: none !important;
 }
