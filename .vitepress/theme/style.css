@@ -128,14 +128,39 @@ body {
   border-bottom: none !important;
 }
 
+/* Remove all possible borders and dividers */
+.VPNavBar .divider,
+.VPNavBar .VPNavBarHamburger,
+.VPNavBar .VPNavBarTitle::after,
+.VPNavBar > .container > .content {
+  border-bottom: none !important;
+}
+
+/* Remove any shadows or border effects on navbar bottom */
+.VPNavBar::after,
+.VPNavBar::before {
+  display: none !important;
+}
+
+/* Ensure nav content area has no borders */
+.VPNav .content,
+.VPNavBar .content {
+  border-bottom: none !important;
+  box-shadow: none !important;
+}
+
 .dark .VPNav,
-.dark .VPNavBar {
+.dark .VPNavBar,
+.dark .VPNav .content,
+.dark .VPNavBar .content {
   background-color: transparent !important;
+  border-bottom: none !important;
 }
 
 @media (prefers-color-scheme: dark) {
   .VPNav {
     background-color: var(--neo-bg) !important;
+    border-bottom: none !important;
   }
 }
 
