@@ -55,8 +55,8 @@ const getDateItemClass = (isSelected: boolean) => {
 </script>
 
 <template>
-  <aside class="w-full md:w-56 flex-shrink-0 z-20">
-    <div class="sticky top-8">
+  <aside class="w-full md:w-56 flex-shrink-0 z-20 sticky top-14 md:static">
+    <div class="md:sticky md:top-8">
       <!-- Title -->
       <div class="mb-4 hidden md:block">
         <h2
@@ -68,7 +68,7 @@ const getDateItemClass = (isSelected: boolean) => {
       </div>
 
       <!-- Date List -->
-      <div class="flex md:flex-col overflow-x-auto md:overflow-visible gap-3 pb-4 md:pb-0 scrollbar-hide items-start">
+      <div class="flex md:flex-col overflow-x-auto md:overflow-visible gap-3 pb-4 md:pb-0 scrollbar-hide items-start bg-inherit">
         <div
           v-for="dateItem in visibleDates"
           :key="dateItem.fullDate"

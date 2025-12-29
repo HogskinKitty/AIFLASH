@@ -8,49 +8,47 @@ import type { NewsItem } from '../utils/newsUtils'
 import DateSidebar from '../components/DateSidebar.vue'
 import NewsCard from '../components/NewsCard.vue'
 import DetailModal from '../components/DetailModal.vue'
+import Header from '../components/Header.vue'
 
 const { isDark } = useData()
 
 const selectedDate = ref(getDayStr(0))
 const selectedItem = ref<NewsItem | null>(null)
+const selectedManufacturer = ref<string | null>(null)
 
 const dateList = generateDateList(30)
 
-const filteredData = computed(() =>
-  newsData.filter(item => item.date === selectedDate.value)
-)
+const filteredData = computed(() => {
+  let items = newsData.filter(item => item.date === selectedDate.value)
+  if (selectedManufacturer.value) {
+    items = items.filter(item => item.manufacturer === selectedManufacturer.value)
+  }
+  return items
+})
 
 const selectedDateObj = computed(() =>
   dateList.find(d => d.fullDate === selectedDate.value)
 )
 
-const titleText = computed(() =>
-  selectedDateObj.value?.isToday
+const titleText = computed(() => {
+  if (selectedManufacturer.value) {
+    return `${selectedManufacturer.value} 速览`
+  }
+  return selectedDateObj.value?.isToday
     ? "今日速览"
     : `${selectedDateObj.value?.displayDate} 速览`
-)
-
-const titleStyle = computed(() => {
-  const shadowColor = isDark.value ? '#c4556a' : '#ff9aa2'
-  const strokeColor = isDark.value ? '#c4556a' : '#ff9aa2'
-  return {
-    'text-shadow': `4px 4px 0px ${shadowColor}, -2px -2px 0 ${isDark.value ? '#1e1e1e' : '#fff'}`,
-    '-webkit-text-stroke': `2px ${strokeColor}`,
-    'color': isDark.value ? '#f3f4f6' : 'white'
-  }
 })
-
-const shadowTitleStyle = computed(() => ({
-  color: isDark.value ? '#c4556a' : '#ff9aa2'
-}))
-
-const iconStyle = computed(() => ({
-  color: isDark.value ? '#c4556a' : '#ff9aa2',
-  filter: `drop-shadow(2px 2px 0px ${isDark.value ? 'rgba(196, 85, 106, 0.3)' : 'rgba(255, 154, 162, 0.3)'})`
-}))
 
 const openDetail = (item: NewsItem) => {
   selectedItem.value = item
+}
+
+const toggleFilter = (manufacturer: string) => {
+  if (selectedManufacturer.value === manufacturer) {
+    selectedManufacturer.value = null
+  } else {
+    selectedManufacturer.value = manufacturer
+  }
 }
 
 const closeDetail = () => {
@@ -94,35 +92,8 @@ watch(isDark, updateDarkMode)
 
         <!-- Main Content Area -->
         <main class="flex-1 min-h-[50vh]">
-          <!-- Header - 水平排列 -->
-          <div class="flex flex-wrap items-center justify-center gap-6 mb-10">
-            <!-- AIFLASH Logo 和闪电 -->
-            <div class="flex items-center gap-3">
-              <div class="relative inline-block">
-                <h1 class="text-4xl md:text-5xl lg:text-6xl font-black tracking-widest relative z-10 transition-all duration-300"
-                    :style="titleStyle">
-                  AIFLASH
-                </h1>
-                <h1 class="text-4xl md:text-5xl lg:text-6xl font-black absolute left-0 top-0 translate-y-1 -z-10 tracking-widest opacity-40 blur-sm hidden sm:block w-full transition-all duration-300"
-                    :style="shadowTitleStyle">
-                  AIFLASH
-                </h1>
-              </div>
-              <Zap :size="28" :style="iconStyle" class="animate-pulse" />
-            </div>
-
-            <!-- 今日速览 -->
-            <div class="relative inline-block z-10">
-              <h1 class="text-2xl md:text-4xl font-black tracking-widest relative z-10 block"
-                  :style="titleStyle">
-                {{ titleText }}
-              </h1>
-              <h1 class="text-2xl md:text-4xl font-black absolute left-0 top-0 translate-y-1 -z-10 tracking-widest opacity-50 blur-sm hidden md:block w-full"
-                  :style="shadowTitleStyle">
-                {{ titleText }}
-              </h1>
-            </div>
-          </div>
+          <!-- Header -->
+          <Header :titleText="titleText" />
 
           <!-- Content List -->
           <div v-if="filteredData.length > 0" class="grid grid-cols-1 md:grid-cols-2 gap-5">
@@ -132,6 +103,7 @@ watch(isDark, updateDarkMode)
               :item="item"
               :isDark="isDark"
               @click="openDetail(item)"
+              @filter-manufacturer="toggleFilter"
             />
           </div>
 
@@ -144,8 +116,12 @@ watch(isDark, updateDarkMode)
             ]"
           >
             <div class="text-4xl mb-4">😴</div>
-            <p class="font-bold text-lg">今天暂时没有新闻</p>
-            <p class="text-sm opacity-80">No news available for this date.</p>
+            <p class="font-bold text-lg">
+              {{ selectedManufacturer ? `暂无 ${selectedManufacturer} 相关新闻` : '今天暂时没有新闻' }}
+            </p>
+            <p class="text-sm opacity-80">
+              {{ selectedManufacturer ? `No news available for ${selectedManufacturer}.` : 'No news available for this date.' }}
+            </p>
           </div>
 
           <div class="mt-12 text-center md:text-left text-sm transition-colors duration-300"

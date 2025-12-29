@@ -12,6 +12,7 @@ const props = defineProps<{
 
 const emit = defineEmits<{
   click: []
+  'filter-manufacturer': [manufacturer: string]
 }>()
 
 const brandColor = getBrandColor(props.item.manufacturer)
@@ -22,10 +23,12 @@ const brandColor = getBrandColor(props.item.manufacturer)
     :theme="item.theme"
     :custom-color="brandColor"
     :isDark="isDark"
-    @click="emit('click')"
     class="flex items-center justify-between min-h-[80px] h-full overflow-hidden"
   >
-    <div class="flex items-center gap-4 flex-1 min-w-0 pr-2">
+    <div 
+      class="flex items-center gap-4 flex-1 min-w-0 pr-2 cursor-pointer"
+      @click="emit('click')"
+    >
       <!-- Vertical Accent Bar -->
       <div
         class="w-1.5 h-10 rounded-full flex-shrink-0"
@@ -47,8 +50,10 @@ const brandColor = getBrandColor(props.item.manufacturer)
 
     <!-- Logo Area -->
     <div
-      class="flex-shrink-0 w-10 h-10 flex items-center justify-center rounded-lg border-2 p-1 transition-colors duration-300"
+      class="flex-shrink-0 w-10 h-10 flex items-center justify-center rounded-lg border-2 p-1 transition-colors duration-300 cursor-pointer hover:scale-110 active:scale-95"
       :class="[isDark ? 'border-white/10 bg-dark-neo-card' : 'border-black/5 bg-gray-50']"
+      @click.stop="emit('filter-manufacturer', item.manufacturer)"
+      title="Filter by this brand"
     >
       <BrandLogo :manufacturer="item.manufacturer" :isDark="isDark" />
     </div>

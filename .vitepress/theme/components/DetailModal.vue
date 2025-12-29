@@ -22,7 +22,9 @@ const themeColor = getBrandColor(props.item.manufacturer)
 const modalBgClass = computed(() => props.isDark ? 'bg-dark-neo-bg border-white' : 'bg-[#fcfbf7] border-black')
 const headerBgClass = computed(() => props.isDark ? 'bg-dark-neo-card border-white' : 'bg-white border-black')
 const bodyBgClass = computed(() => props.isDark ? 'bg-dark-neo-bg' : 'bg-[#fcfbf7]')
-const modalShadow = computed(() => `shadow-[8px_8px_0px_0px_${props.isDark ? 'rgba(255,255,255,0.3)' : 'rgba(0,0,0,1)'}]`)
+const modalShadow = computed(() => ({
+  boxShadow: `8px 8px 0px 0px ${props.isDark ? 'rgba(255,255,255,0.3)' : 'rgba(0,0,0,1)'}`
+}))
 
 // Lock body scroll when modal is open
 onMounted(() => {
@@ -45,7 +47,8 @@ onUnmounted(() => {
     <!-- Modal Content -->
     <div 
       class="relative w-full max-w-5xl max-h-[90vh] border-4 rounded-2xl flex flex-col overflow-hidden modal-enter transition-colors duration-300"
-      :class="[modalBgClass, modalShadow]"
+      :class="[modalBgClass]"
+      :style="modalShadow"
     >
       <!-- Header -->
       <div 
