@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref, computed, watch, onMounted } from 'vue'
 import { useData } from 'vitepress'
-import { Zap } from 'lucide-vue-next'
+import { Zap, Coffee } from 'lucide-vue-next'
 import { data as newsData } from '../data/news.data.js'
 import { generateDateList, getDayStr } from '../utils/newsUtils'
 import type { NewsItem } from '../utils/newsUtils'
@@ -115,15 +115,14 @@ watch(isDark, updateDarkMode)
             custom-color="#94a3b8"
             class="flex flex-col items-center justify-center py-20 text-center"
           >
-            <div class="text-6xl mb-6 animate-pulse">😴</div>
+            <div class="mb-6 text-gray-400 animate-pulse">
+              <Coffee :size="64" :stroke-width="1.5" />
+            </div>
             <h3 class="font-black text-2xl mb-2" :class="[isDark ? 'text-white' : 'text-black']">
               {{ selectedManufacturer ? `暂无 ${selectedManufacturer} 相关新闻` : '今天暂时没有新闻' }}
             </h3>
-            <p class="text-base font-medium max-w-md mx-auto" :class="[isDark ? 'text-gray-400' : 'text-gray-500']">
-              {{ selectedManufacturer 
-                  ? `Looks like ${selectedManufacturer} has been quiet lately. Try checking other dates!` 
-                  : 'The AI world is taking a nap. Check back later or explore previous days!' 
-              }}
+            <p v-if="selectedManufacturer" class="text-base font-medium max-w-md mx-auto" :class="[isDark ? 'text-gray-400' : 'text-gray-500']">
+              Try checking other dates!
             </p>
           </NeoCard>
 
