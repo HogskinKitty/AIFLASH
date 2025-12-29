@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, computed, watch, nextTick } from 'vue'
+import { ref, computed, watch, onMounted } from 'vue'
 import { useData } from 'vitepress'
 import { data as newsData } from '../data/news.data.js'
 import { generateDateList, getDayStr } from '../utils/newsUtils'
@@ -52,20 +52,19 @@ const closeDetail = () => {
   selectedItem.value = null
 }
 
-// Sync body class with VitePress theme
-watch(isDark, (newValue) => {
-  if (newValue) {
-    document.documentElement.classList.add('dark')
-  } else {
-    document.documentElement.classList.remove('dark')
+// Initialize dark mode on client side
+function updateDarkMode() {
+  if (typeof document !== 'undefined') {
+    if (isDark.value) {
+      document.documentElement.classList.add('dark')
+    } else {
+      document.documentElement.classList.remove('dark')
+    }
   }
-}, { immediate: true })
+}
 
-nextTick(() => {
-  if (isDark.value) {
-    document.documentElement.classList.add('dark')
-  }
-})
+onMounted(updateDarkMode)
+watch(isDark, updateDarkMode)
 </script>
 
 <template>
