@@ -114,10 +114,29 @@ body {
   animation: modalIn 0.2s ease-out forwards;
 }
 
-/* Hide VitePress nav/sidebar on home */
-.Layout.home .VPNav,
-.Layout.home .VPSidebar {
-  display: none;
+/* VitePress Navigation Bar - Match content background */
+.VPNav {
+  background-color: var(--neo-bg) !important;
+}
+
+.VPNav .container {
+  background-color: transparent !important;
+}
+
+.VPNavBar {
+  background-color: transparent !important;
+  border-bottom: none !important;
+}
+
+.dark .VPNav,
+.dark .VPNavBar {
+  background-color: transparent !important;
+}
+
+@media (prefers-color-scheme: dark) {
+  .VPNav {
+    background-color: var(--neo-bg) !important;
+  }
 }
 
 /* Theme transition support */
