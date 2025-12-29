@@ -3,7 +3,7 @@ import { defineConfig } from 'vitepress'
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
   srcDir: "docs",
-  base: '/AIFLASH/',
+  base: '/',
 
   title: "AIFLASH",
   description: "每日 AI 行业动态速览",
