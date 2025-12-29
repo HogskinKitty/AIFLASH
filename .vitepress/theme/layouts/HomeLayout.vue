@@ -1,13 +1,13 @@
 <script setup lang="ts">
 import { ref, computed, watch, onMounted } from 'vue'
 import { useData } from 'vitepress'
+import { Zap } from 'lucide-vue-next'
 import { data as newsData } from '../data/news.data.js'
 import { generateDateList, getDayStr } from '../utils/newsUtils'
 import type { NewsItem } from '../utils/newsUtils'
 import DateSidebar from '../components/DateSidebar.vue'
 import NewsCard from '../components/NewsCard.vue'
 import DetailModal from '../components/DetailModal.vue'
-import AIFLASHLogo from '../components/AIFLASHLogo.vue'
 
 const { isDark } = useData()
 
@@ -42,6 +42,11 @@ const titleStyle = computed(() => {
 
 const shadowTitleStyle = computed(() => ({
   color: isDark.value ? '#c4556a' : '#ff9aa2'
+}))
+
+const iconStyle = computed(() => ({
+  color: isDark.value ? '#c4556a' : '#ff9aa2',
+  filter: `drop-shadow(2px 2px 0px ${isDark.value ? 'rgba(196, 85, 106, 0.3)' : 'rgba(255, 154, 162, 0.3)'})`
 }))
 
 const openDetail = (item: NewsItem) => {
@@ -89,23 +94,31 @@ watch(isDark, updateDarkMode)
 
         <!-- Main Content Area -->
         <main class="flex-1 min-h-[50vh]">
-          <!-- Logo -->
-          <AIFLASHLogo :isDark="isDark" />
+          <!-- Header - 水平排列 -->
+          <div class="flex flex-wrap items-center justify-center gap-6 mb-10">
+            <!-- AIFLASH Logo 和闪电 -->
+            <div class="flex items-center gap-3">
+              <div class="relative inline-block">
+                <h1 class="text-4xl md:text-5xl lg:text-6xl font-black tracking-widest relative z-10 transition-all duration-300"
+                    :style="titleStyle">
+                  AIFLASH
+                </h1>
+                <h1 class="text-4xl md:text-5xl lg:text-6xl font-black absolute left-0 top-0 translate-y-1 -z-10 tracking-widest opacity-40 blur-sm hidden sm:block w-full transition-all duration-300"
+                    :style="shadowTitleStyle">
+                  AIFLASH
+                </h1>
+              </div>
+              <Zap :size="28" :style="iconStyle" class="animate-pulse" />
+            </div>
 
-          <!-- Header Title - Centered -->
-          <div class="text-center mb-10">
+            <!-- 今日速览 -->
             <div class="relative inline-block z-10">
-              <h1
-                class="text-4xl md:text-5xl font-black relative z-10 block tracking-widest"
-                :style="titleStyle"
-              >
+              <h1 class="text-2xl md:text-4xl font-black tracking-widest relative z-10 block"
+                  :style="titleStyle">
                 {{ titleText }}
               </h1>
-              <!-- Decorative shadow -->
-              <h1
-                class="text-4xl md:text-5xl font-black absolute left-0 top-0 translate-y-1 -z-10 tracking-widest opacity-50 blur-sm hidden md:block w-full"
-                :style="shadowTitleStyle"
-              >
+              <h1 class="text-2xl md:text-4xl font-black absolute left-0 top-0 translate-y-1 -z-10 tracking-widest opacity-50 blur-sm hidden md:block w-full"
+                  :style="shadowTitleStyle">
                 {{ titleText }}
               </h1>
             </div>
