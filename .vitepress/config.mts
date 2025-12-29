@@ -3,6 +3,7 @@ import { defineConfig } from 'vitepress'
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
   srcDir: "docs",
+  base: '/AIFLASH/',
 
   title: "AIFLASH",
   description: "每日 AI 行业动态速览",
@@ -19,7 +20,7 @@ export default defineConfig({
     sidebar: [],
 
     socialLinks: [
-      { icon: 'github', link: 'https://github.com' }
+      { icon: 'github', link: 'https://github.com/HogskinKitty/AIFLASH' }
     ]
   }
 })
