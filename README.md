@@ -1,4 +1,4 @@
-# AI 早报
+# AIFLASH
 
 每日 AI 行业动态速览，Neo-Pop 风格设计的 VitePress 站点。
 
@@ -65,7 +65,7 @@ news:
 4. 提交更改：
    ```bash
    git add .
-   git commit -m "news: 2024-12-29 AI 早报"
+   git commit -m "news: 2024-12-29 AIFLASH"
    ```
 
 ## 项目结构

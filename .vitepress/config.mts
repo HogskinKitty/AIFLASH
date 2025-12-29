@@ -4,7 +4,7 @@ import { defineConfig } from 'vitepress'
 export default defineConfig({
   srcDir: "docs",
 
-  title: "AI 早报",
+  title: "AIFLASH",
   description: "每日 AI 行业动态速览",
 
   head: [

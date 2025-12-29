@@ -7,6 +7,7 @@ import type { NewsItem } from '../utils/newsUtils'
 import DateSidebar from '../components/DateSidebar.vue'
 import NewsCard from '../components/NewsCard.vue'
 import DetailModal from '../components/DetailModal.vue'
+import AIFLASHLogo from '../components/AIFLASHLogo.vue'
 
 const { isDark } = useData()
 
@@ -89,6 +90,9 @@ nextTick(() => {
 
         <!-- Main Content Area -->
         <main class="flex-1 min-h-[50vh]">
+          <!-- Logo -->
+          <AIFLASHLogo :isDark="isDark" />
+
           <!-- Header Title - Centered -->
           <div class="text-center mb-10">
             <div class="relative inline-block z-10">
@@ -134,7 +138,7 @@ nextTick(() => {
 
           <div class="mt-12 text-center md:text-left text-sm transition-colors duration-300"
                :class="[isDark ? 'text-gray-500' : 'text-gray-400']">
-            © 2025 AI Morning News. Designed with Neo-Pop style.
+            © 2025 AIFLASH. Designed with Neo-Pop style.
           </div>
         </main>
       </div>
