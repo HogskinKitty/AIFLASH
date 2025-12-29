@@ -68,6 +68,11 @@ body {
   padding: 0 !important;
 }
 
+/* Hide VitePress native theme toggle */
+.VPSwitchAppearance {
+  display: none !important;
+}
+
 /* Custom scrollbar */
 ::-webkit-scrollbar {
   width: 8px;

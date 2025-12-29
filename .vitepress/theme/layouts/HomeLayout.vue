@@ -7,7 +7,6 @@ import type { NewsItem } from '../utils/newsUtils'
 import DateSidebar from '../components/DateSidebar.vue'
 import NewsCard from '../components/NewsCard.vue'
 import DetailModal from '../components/DetailModal.vue'
-import ThemeToggle from '../components/ThemeToggle.vue'
 
 const { isDark } = useData()
 
@@ -73,11 +72,6 @@ nextTick(() => {
     <div class="min-h-screen transition-colors duration-300"
          :style="{ backgroundColor: isDark ? '#121212' : '#fcfbf7' }">
       <div class="max-w-7xl mx-auto px-4 py-8 flex flex-col md:flex-row gap-8">
-
-        <!-- Theme Toggle - Fixed Position -->
-        <div class="fixed top-4 right-4 z-50">
-          <ThemeToggle />
-        </div>
 
         <!-- Modal -->
         <DetailModal
