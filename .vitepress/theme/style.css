@@ -126,41 +126,56 @@ body {
 .VPNavBar {
   background-color: transparent !important;
   border-bottom: none !important;
+  border: none !important;
 }
 
-/* Remove all possible borders and dividers */
-.VPNavBar .divider,
-.VPNavBar .VPNavBarHamburger,
-.VPNavBar .VPNavBarTitle::after,
-.VPNavBar > .container > .content {
+/* Override VitePress CSS variables for nav border */
+:root {
+  --vp-c-bg: var(--neo-bg);
+  --vp-c-gutter: var(--neo-bg);
+  --vp-nav-bg-color: var(--neo-bg);
+  --vp-nav-border-color: transparent;
+}
+
+.dark {
+  --vp-c-bg: var(--neo-bg);
+  --vp-c-gutter: var(--neo-bg);
+  --vp-nav-bg-color: var(--neo-bg);
+  --vp-nav-border-color: transparent;
+}
+
+/* Remove all borders from nav and its children */
+.VPNav *,
+.VPNavBar *,
+.VPNavBar > div,
+.VPNavBar .container,
+.VPNavBar .content,
+.VPNavBar .item {
   border-bottom: none !important;
-}
-
-/* Remove any shadows or border effects on navbar bottom */
-.VPNavBar::after,
-.VPNavBar::before {
-  display: none !important;
-}
-
-/* Ensure nav content area has no borders */
-.VPNav .content,
-.VPNavBar .content {
-  border-bottom: none !important;
+  border: none !important;
   box-shadow: none !important;
+  outline: none !important;
+}
+
+/* Remove any divider elements */
+.VPNav .divider,
+.VPNavBar .divider {
+  display: none !important;
 }
 
 .dark .VPNav,
 .dark .VPNavBar,
-.dark .VPNav .content,
-.dark .VPNavBar .content {
+.dark .VPNav .content {
   background-color: transparent !important;
   border-bottom: none !important;
+  border: none !important;
 }
 
 @media (prefers-color-scheme: dark) {
   .VPNav {
     background-color: var(--neo-bg) !important;
     border-bottom: none !important;
+    border: none !important;
   }
 }
 
