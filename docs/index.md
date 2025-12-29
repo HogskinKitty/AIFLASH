@@ -1,9 +1,5 @@
 ---
-layout: page
+layout: false
 ---
-
-<script setup>
-import HomeLayout from '../.vitepress/theme/layouts/HomeLayout.vue'
-</script>
 
 <HomeLayout />
