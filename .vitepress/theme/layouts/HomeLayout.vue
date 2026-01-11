@@ -39,6 +39,13 @@ const titleText = computed(() => {
     : `${selectedDateObj.value?.displayDate} 速览`
 })
 
+const updateDate = computed(() => {
+  const date = new Date()
+  const hours = String(date.getHours()).padStart(2, '0')
+  const minutes = String(date.getMinutes()).padStart(2, '0')
+  return `更新于 ${hours}:${minutes}`
+})
+
 const openDetail = (item: NewsItem) => {
   selectedItem.value = item
 }
@@ -93,7 +100,7 @@ watch(isDark, updateDarkMode)
         <!-- Main Content Area -->
         <main class="flex-1 min-h-[50vh]">
           <!-- Header -->
-          <Header :titleText="titleText" />
+          <Header :titleText="titleText" :updateDate="updateDate" />
 
           <!-- Content List -->
           <div v-if="filteredData.length > 0" class="grid grid-cols-1 md:grid-cols-2 gap-5">

@@ -5,6 +5,7 @@ import { Zap } from 'lucide-vue-next'
 
 const props = defineProps<{
   titleText: string
+  updateDate?: string
 }>()
 
 const { isDark } = useData()
@@ -44,6 +45,16 @@ const iconStyle = computed(() => ({
         </h1>
       </div>
       <Zap :size="28" :style="iconStyle" class="animate-pulse" />
+    </div>
+
+    <!-- Update Date -->
+    <div v-if="updateDate" class="flex items-center gap-2 px-3 py-1 rounded-full"
+         :class="isDark ? 'bg-gray-800/80' : 'bg-white/80'"
+         style="box-shadow: 2px 2px 0px rgba(196, 85, 106, 0.2);">
+      <span class="text-xs font-medium"
+            :class="isDark ? 'text-gray-400' : 'text-gray-500'">
+        {{ updateDate }}
+      </span>
     </div>
 
     <!-- Daily Quick View -->
