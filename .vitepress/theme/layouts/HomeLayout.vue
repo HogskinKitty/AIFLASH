@@ -20,6 +20,11 @@ const selectedDate = ref(dateList[0]?.fullDate ?? getDayStr(0))
 const selectedItem = ref<NewsItem | null>(null)
 const selectedCategory = ref<string | null>(null)
 
+// 切换日期后，当前分类可能在新的一天不存在，需清空避免误显示空状态
+watch(selectedDate, () => {
+  selectedCategory.value = null
+})
+
 const dayItems = computed(() =>
   newsData.filter(item => item.date === selectedDate.value)
 )
