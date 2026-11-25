@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import NeoCard from './NeoCard.vue'
 import HighlightText from './HighlightText.vue'
-import BrandLogo from './BrandLogo.vue'
+import Icon from './Icon.vue'
 import type { NewsItem } from '../utils/newsUtils'
-import { getBrandColor } from '../utils/newsUtils'
+import { getCategoryColor } from '../utils/newsUtils'
 
 const props = defineProps<{
   item: NewsItem
@@ -12,27 +12,27 @@ const props = defineProps<{
 
 const emit = defineEmits<{
   click: []
-  'filter-manufacturer': [manufacturer: string]
+  'filter-category': [category: string]
 }>()
 
-const brandColor = getBrandColor(props.item.manufacturer)
+const categoryColor = getCategoryColor(props.item.category)
 </script>
 
 <template>
   <NeoCard
     :theme="item.theme"
-    :custom-color="brandColor"
+    :custom-color="categoryColor"
     :isDark="isDark"
     class="flex items-center justify-between min-h-[80px] h-full overflow-hidden"
   >
-    <div 
+    <div
       class="flex items-center gap-4 flex-1 min-w-0 pr-2 cursor-pointer"
       @click="emit('click')"
     >
       <!-- Vertical Accent Bar -->
       <div
         class="w-1.5 h-10 rounded-full flex-shrink-0"
-        :style="{ backgroundColor: brandColor }"
+        :style="{ backgroundColor: categoryColor }"
       />
 
       <!-- Title Content -->
@@ -48,14 +48,16 @@ const brandColor = getBrandColor(props.item.manufacturer)
       </div>
     </div>
 
-    <!-- Logo Area -->
-    <div
-      class="flex-shrink-0 w-10 h-10 flex items-center justify-center rounded-lg border-2 p-1 transition-colors duration-300 cursor-pointer hover:scale-110 active:scale-95"
+    <!-- Category Badge -->
+    <button
+      class="flex-shrink-0 flex items-center gap-1 px-2 h-8 rounded-lg border-2 p-1 transition-colors duration-300 cursor-pointer hover:scale-105 active:scale-95"
       :class="[isDark ? 'border-white/10 bg-dark-neo-card' : 'border-black/5 bg-gray-50']"
-      @click.stop="emit('filter-manufacturer', item.manufacturer)"
-      title="Filter by this brand"
+      :style="{ color: categoryColor }"
+      @click.stop="emit('filter-category', item.category)"
+      :title="`筛选「${item.category}」`"
     >
-      <BrandLogo :manufacturer="item.manufacturer" :isDark="isDark" />
-    </div>
+      <Icon :name="item.details[0]?.icon || 'globe'" :size="14" />
+      <span class="text-xs font-bold whitespace-nowrap">{{ item.category }}</span>
+    </button>
   </NeoCard>
 </template>

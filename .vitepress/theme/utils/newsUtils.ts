@@ -6,40 +6,41 @@ export interface DetailCard {
     icon: IconName
     content: string
     highlights?: string[]
+    /** 正文段落，RSS 摘要之外的完整内容 */
+    paragraphs?: string[]
 }
 
 export interface NewsItem {
     id: string
     title: string
     titleHighlight?: string[]
-    score?: string
     theme: ColorTheme
-    manufacturer: string
+    /** 早报分类，如「要闻」「模型发布」 */
+    category: string
+    /** 一句话摘要 */
+    summary: string
+    /** 正文配图 */
+    images: string[]
+    /** 相关链接 */
+    links: string[]
     details: DetailCard[]
     date: string
 }
 
-// Brand colors mapping
-const brandColors: Record<string, string> = {
-    'OpenAI': '#10a37f',
-    'Google': '#4285F4',
-    'Microsoft': '#00a4ef',
-    'Anthropic': '#d97757',
-    'Nvidia': '#76b900',
-    'Zhipu AI': '#3370ff',
-    'MiniMax': '#ff4d4f',
-    'Moonshot': '#3A0088',
-    'Alibaba': '#ff6a00',
-    'Mistral': '#f6c444',
-    'Stability AI': '#7D55C7',
-    'Apple': '#000000',
-    'Jan': '#a3278f',
-    'Meta': '#0668E1',
-    'Unknown': '#666666'
+// 分类配色
+const categoryColors: Record<string, string> = {
+    '要闻': '#ff9aa2',
+    '模型发布': '#b5e48c',
+    '开发生态': '#aed9e0',
+    '产品应用': '#fde4cf',
+    '技术与洞察': '#d0d1ff',
+    '行业动态': '#aed9e0',
+    '前瞻与传闻': '#fde4cf',
+    '其他': '#94a3b8'
 }
 
-export function getBrandColor(manufacturer: string): string {
-    return brandColors[manufacturer] || brandColors['Unknown']
+export function getCategoryColor(category: string): string {
+    return categoryColors[category] || categoryColors['其他']
 }
 
 // Helper to format date as YYYY-MM-DD
