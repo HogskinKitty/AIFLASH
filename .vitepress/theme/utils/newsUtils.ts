@@ -52,24 +52,23 @@ export function getDayStr(offset: number = 0): string {
     return `${year}-${month}-${day}`
 }
 
-// Generate date list for sidebar
-export function generateDateList(days: number = 30) {
-    const dateList = []
-    for (let i = 0; i < days; i++) {
-        const d = new Date()
-        d.setDate(d.getDate() - i)
-        const year = d.getFullYear()
-        const month = String(d.getMonth() + 1).padStart(2, '0')
-        const date = String(d.getDate()).padStart(2, '0')
+// Generate date list for sidebar from dates that actually have news
+export function generateDateList(dateStrings: string[], limit: number = 30) {
+    const todayStr = getDayStr(0)
 
-        const dayName = ['周日', '周一', '周二', '周三', '周四', '周五', '周六'][d.getDay()]
+    return Array.from(new Set(dateStrings))
+        .sort((a, b) => b.localeCompare(a))
+        .slice(0, limit)
+        .map(fullDate => {
+            const [year, month, date] = fullDate.split('-').map(Number)
+            const d = new Date(year, month - 1, date)
+            const dayName = ['周日', '周一', '周二', '周三', '周四', '周五', '周六'][d.getDay()]
 
-        dateList.push({
-            fullDate: `${year}-${month}-${date}`,
-            displayDate: `${parseInt(month)}月${parseInt(date)}日`,
-            weekDay: dayName,
-            isToday: i === 0
+            return {
+                fullDate,
+                displayDate: `${month}月${date}日`,
+                weekDay: dayName,
+                isToday: fullDate === todayStr
+            }
         })
-    }
-    return dateList
 }

@@ -13,11 +13,12 @@ import Header from '../components/Header.vue'
 
 const { isDark, theme } = useData()
 
-const selectedDate = ref(getDayStr(0))
+const dateList = generateDateList(newsData.map(item => item.date))
+
+// Default to the newest date that actually has news
+const selectedDate = ref(dateList[0]?.fullDate ?? getDayStr(0))
 const selectedItem = ref<NewsItem | null>(null)
 const selectedManufacturer = ref<string | null>(null)
-
-const dateList = generateDateList(30)
 
 const filteredData = computed(() => {
   let items = newsData.filter(item => item.date === selectedDate.value)
