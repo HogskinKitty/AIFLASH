@@ -20,6 +20,10 @@ const selectedDate = ref(dateList[0]?.fullDate ?? getDayStr(0))
 const selectedItem = ref<NewsItem | null>(null)
 const selectedCategory = ref<string | null>(null)
 
+// 构建机跑在 UTC，「今天」必须按访客本地时区判断，否则会拿隔天数据
+// 标成「今日速览」。挂载后再算，避免与 SSR 输出不一致。
+const todayStr = ref<string | null>(null)
+
 // 切换日期后，当前分类可能在新的一天不存在，需清空避免误显示空状态
 watch(selectedDate, () => {
   selectedCategory.value = null
@@ -47,7 +51,8 @@ const titleText = computed(() => {
   if (selectedCategory.value) {
     return selectedCategory.value
   }
-  return selectedDateObj.value?.isToday
+  const isToday = todayStr.value !== null && selectedDate.value === todayStr.value
+  return isToday
     ? "今日速览"
     : `${selectedDateObj.value?.displayDate} 速览`
 })
@@ -82,7 +87,10 @@ function updateDarkMode() {
   }
 }
 
-onMounted(updateDarkMode)
+onMounted(() => {
+  updateDarkMode()
+  todayStr.value = getDayStr(0)
+})
 watch(isDark, updateDarkMode)
 </script>
 
