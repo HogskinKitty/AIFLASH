@@ -7,6 +7,7 @@ import { generateDateList, getDayStr } from '../utils/newsUtils'
 import type { NewsItem } from '../utils/newsUtils'
 import DateSidebar from '../components/DateSidebar.vue'
 import NewsCard from '../components/NewsCard.vue'
+import NeoCard from '../components/NeoCard.vue'
 import DetailModal from '../components/DetailModal.vue'
 import Header from '../components/Header.vue'
 
